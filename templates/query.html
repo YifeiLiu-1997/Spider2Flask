@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block word %}
+<div style="font-size: 32px; font-weight: bolder">{{ keyword }}<br></div><br>
+{% endblock %}
+
+{% block pron %}
+{% if uk_pron == "No UK pronounce" and us_pron == "No US pronounce" and uk_mp3 and us_mp3 == "None" %}
+{% endif %}
+<div style="margin-bottom: 20px; font-weight: bold">
+{% if uk_pron != "No UK pronounce" %}
+    <span>UK: &nbsp;{{ uk_pron|safe }}&nbsp;&nbsp;</span>
+{% endif %}
+{% if uk_mp3 != "None" %}
+    <audio id="music_uk" src='{{ uk_mp3 }}'></audio>
+    <span style="cursor: pointer"><img src="{{ url_for('static', filename='images/ff.png')}}" alt="no pic" onclick='play_uk()'></span>
+{% endif %}
+{% if us_pron != "No US pronounce" %}
+    <span>&nbsp;&nbsp;US: &nbsp;{{ us_pron|safe }}&nbsp;&nbsp;</span>
+{% endif %}
+{% if us_mp3 != "None" %}
+    <audio id="music_us" src='{{ us_mp3 }}'></audio>
+    <span style="cursor: pointer"><img src="{{ url_for('static', filename='images/ff.png')}}" alt="no pic" onclick='play_us()'></span>
+{% endif %}
+</div>
+{% endblock %}
+
+{% block transform %}
+{%for block_list in trans_list%}
+{%for word in block_list%}
+{%if loop.index0%}
+<div style="font-size: 16px; font-weight: bold">{{ word }}<br></div>
+{% else %}
+<div style="font-size: 26px; font-weight: bolder; color:#009688; font-style:italic">{{ word }}<br></div><br>
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endblock %}

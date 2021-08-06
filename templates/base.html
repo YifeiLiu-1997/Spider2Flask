@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FF DICTIONARY</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='layui/css/layui.css')}}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/bitbug_favicon (1).ico')}}" type="image/x-icon"/>
+    <style>
+        .container{
+            width: 800px;
+            margin: auto;
+            margin-top: 250px;
+        }
+        .input{
+            margin: auto;
+        }
+        .input>input{
+            height: 44px;
+            border-radius: 10px;
+        }
+        .button{
+            margin: auto;
+        }
+        .content{
+            font: 14px bolder;
+            line-height: 2em;
+            border-radius: 10px;
+            border: 1px #e6e8ea solid;
+            padding: 10px;
+        }
+        .layui-btn-primary:hover
+        {
+            border-color: #009688;
+            color:#333;
+        }
+        .title{
+            margin: 0 auto;
+            font-size: 40px;
+            font-weight: bolder;
+            color: #009688;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+  <div class="layui-row layui-col-space30">
+      <div class="layui-col-md12">
+          <div class="title">
+              非非词典
+          </div>
+      </div>
+      <div class="layui-col-md9">
+          <div class="grid-demo grid-demo-bg1">
+              <div class="input">
+                  <input type="text" name="title" required lay-verify="required"
+                     placeholder="请输入单词" autocomplete="off" class="layui-input" id="keywords">
+              </div>
+          </div>
+      </div>
+      <div class="layui-col-md3">
+          <div class="layui-col-md12">
+              <div class="layui-col-md6">
+                  <div class="grid-demo">
+                      <div class="button">
+                          <button type="button" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius"
+                              id="my_button1" onclick="query()" style="font-weight: bolder">搜索</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="layui-col-md6">
+                  <div class="grid-demo">
+                      <div class="button">
+                          <button type="button" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius"
+                              id="my_button2" onclick="window.location.href='http://127.0.0.1:5000/'"
+                                  style="font-weight: bolder">清空</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+      <div class="layui-col-md12">
+          <div class="grid-demo">
+              <div class="content">
+                  <div id="trans">
+                    {% block word %}
+                    {% endblock %}
+                    {% block pron %}
+                    {% endblock %}
+                    {% block transform %}
+                    {% endblock %}
+                  </div>
+             </div>
+         </div>
+      </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+
+    document.onkeydown = enter;
+    function enter() {
+        if (event.keyCode === 13) {
+            document.getElementById("my_button1").click();
+        }
+        if (event.keyCode === 27) {
+            document.getElementById("my_button2").click();
+        }
+    }
+
+    function play_uk() {
+        var audio = document.getElementById('music_uk');
+        if (audio.paused) {
+            audio.play();
+        }else{
+            audio.pause();
+            audio.currentTime = 0;
+        }
+    }
+
+    function play_us() {
+        var audio = document.getElementById('music_us');
+        if (audio.paused) {
+            audio.play();
+        }else{
+            audio.pause();
+            audio.currentTime = 0;
+        }
+    }
+
+    function query() {
+        window.location.href="./" + document.getElementById('keywords').value;
+    }
+</script>
+</html>
